@@ -18,8 +18,6 @@ python app.py
 
 Now you can open the browser and go to `http://0.0.0.0:7860/` to see the Gradio Interface with Edge TTS available to use, you can also look at the API specification for it. A simple example is shown below in JavaScript, you will need `npm`, `node`.
 
-```python
-
 ```bash
 npm install .
 
