@@ -6,5 +6,5 @@ services:
     ports:
       - "7860:7860"
     environment:
-      PORT: 7860
+      PORT: "7860"
     restart: unless-stopped
