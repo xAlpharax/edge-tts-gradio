@@ -2,6 +2,7 @@ import gradio as gr
 import edge_tts
 import asyncio
 import tempfile
+
 from typing import Optional, Tuple
 
 # Fetch available voices once and cache them
@@ -28,6 +29,7 @@ async def text_to_speech(text: str, voice: str, rate: int, volume: int, pitch: i
             await communicate.save(tmp_path)
 
         return tmp_path, None
+
     except Exception as e:
         return None, f"An error occurred: {str(e)}"
 
@@ -45,6 +47,7 @@ async def create_interface():
      - **Volume**: `0` is default; positive increases volume, negative decreases volume.
      - **Pitch**: `0` is default; positive raises pitch, negative lowers pitch.
      """
+
      interface = gr.Interface(
          fn=tts_interface,
          inputs=[
@@ -65,6 +68,7 @@ async def create_interface():
          flagging_mode="never",
          clear_btn=None,
      )
+
      return interface
 
 # Run the Gradio app in a synchronous event loop

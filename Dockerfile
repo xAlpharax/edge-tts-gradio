@@ -15,5 +15,5 @@ COPY app.py ./
 # Expose the port the app runs on
 EXPOSE 7860
 
-# Command to run the application using uvicorn
+# Command to run the application
 CMD ["python", "app.py"]
