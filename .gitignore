@@ -1,10 +1,11 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
-node_modules/
-package-lock.json
-.gradio/
 *.py[cod]
 *$py.class
+
+# node and npm cache
+node_modules/
+package-lock.json
 
 # C extensions
 *.so
