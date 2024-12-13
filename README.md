@@ -1,5 +1,6 @@
 # edge-tts-gradio
-Experimenting with Gradio
+
+Gradio Interface for Text-To-Speech using Edge TTS. It has support for many languages and voices, including Romanian, and offers pretty great accuracy.
 
 ## Setup
 
@@ -44,6 +45,18 @@ docker run -d -p 7860:7860 --name edge-tts-gradio edge-tts-gradio
 #when removing the image
 #docker rmi edge-tts-gradio
 ```
+
+Or use docker-compose:
+
+```bash
+docker-compose up -d
+
+#when stopping the container
+#docker-compose down
+
+```
+
+Remember you can always remove the `-d` flag for debugging purposes.
 
 ## Contributing
 
