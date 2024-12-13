@@ -1,20 +1,19 @@
-# Use Python 3.10.14 slim as the base image
+# Use an official Python base image
 FROM python:3.10.14-slim
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the local requirements.txt to the container
-COPY requirements.txt .
+# Install Python dependencies
+COPY requirements.txt ./
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
-# Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy the application code into the container
+COPY app.py ./
 
-# Copy the rest of the application code to the container
-COPY . .
-
-# Expose the port Gradio will run on
+# Expose the port the app runs on
 EXPOSE 7860
 
-# Command to run the application
+# Command to run the application using uvicorn
 CMD ["python", "app.py"]

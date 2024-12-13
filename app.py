@@ -2,7 +2,6 @@ import gradio as gr
 import edge_tts
 import asyncio
 import tempfile
-
 from typing import Optional, Tuple
 
 # Fetch available voices once and cache them
@@ -36,39 +35,41 @@ async def text_to_speech(text: str, voice: str, rate: int, volume: int, pitch: i
 async def tts_interface(text: str, voice: str, rate: int, volume: int, pitch: int) -> Tuple[Optional[str], Optional[str]]:
     return await text_to_speech(text, voice, rate, volume, pitch)
 
-# Create the Gradio application
-async def create_demo():
-    voices = await get_voices()
+ # Define the Gradio interface
+async def create_interface():
+     voices = await get_voices()
 
-    description = """
-    Convert Text to Speech using Microsoft Edge TTS. Adjust speech rate and pitch:
-    - **Rate**: `0` is default; positive increases speed, negative decreases speed.
-    - **Volume**: `0` is default; positive increases volume, negative decreases volume.
-    - **Pitch**: `0` is default; positive raises pitch, negative lowers pitch.
-    """
+     description = """
+     Convert Text to Speech using Microsoft Edge TTS. Adjust speech rate and pitch:
+     - **Rate**: `0` is default; positive increases speed, negative decreases speed.
+     - **Volume**: `0` is default; positive increases volume, negative decreases volume.
+     - **Pitch**: `0` is default; positive raises pitch, negative lowers pitch.
+     """
+     interface = gr.Interface(
+         fn=tts_interface,
+         inputs=[
+             gr.Textbox(label="Input Text", lines=5, placeholder="Type the text to convert here..."),
+             gr.Dropdown(choices=list(voices.keys()), label="Select Voice", value="ro-RO-AlinaNeural (Female)"),
+             gr.Slider(minimum=-50, maximum=50, value=0, label="Speech Rate Adjustment (%)", step=1),
+             gr.Slider(minimum=-50, maximum=50, value=0, label="Speech Volume Adjustment (%)", step=1),
+             gr.Slider(minimum=-50, maximum=50, value=0, label="Speech Pitch Adjustment (Hz)", step=1)
+         ],
+         outputs=[
+             gr.Audio(label="Generated Audio", type="filepath"),
+             gr.Markdown(label="Warning", visible=False)
+         ],
+         title="Edge TTS Text-To-Speech",
+         description=description,
+         theme=gr.themes.Origin(),
+         analytics_enabled=False,
+         flagging_mode="never",
+         clear_btn=None,
+     )
+     return interface
 
-    return gr.Interface(
-        fn=tts_interface,
-        inputs=[
-            gr.Textbox(label="Input Text", lines=5, placeholder="Type the text to convert here..."),
-            gr.Dropdown(choices=list(voices.keys()), label="Select Voice", value="ro-RO-AlinaNeural (Female)"),
-            gr.Slider(minimum=-50, maximum=50, value=0, label="Speech Rate Adjustment (%)", step=1),
-            gr.Slider(minimum=-50, maximum=50, value=0, label="Speech Volume Adjustment (%)", step=1),
-            gr.Slider(minimum=-50, maximum=50, value=0, label="Speech Pitch Adjustment (Hz)", step=1)
-        ],
-        outputs=[
-            gr.Audio(label="Generated Audio", type="filepath"),
-            gr.Markdown(label="Warning", visible=False)
-        ],
-        title="Edge TTS Text-To-Speech",
-        description=description,
-        theme=gr.themes.Origin(),
-        analytics_enabled=False,
-        flagging_mode="never",
-        clear_btn=None,
-    )
-
-# Run the application
+# Run the Gradio app in a synchronous event loop
 if __name__ == "__main__":
-    demo = asyncio.run(create_demo())
-    demo.launch(server_name="0.0.0.0")
+    async def run_app():
+        interface = await create_interface()
+        interface.launch(server_name="0.0.0.0", share=False)
+    asyncio.run(run_app())
