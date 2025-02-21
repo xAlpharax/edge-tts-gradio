@@ -17,7 +17,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Now you can open the browser and go to `http://0.0.0.0:7860/` to see the Gradio Interface with Edge TTS available to use, you can also look at the API specification for it. `Ctrl + C` to stop the server. A simple API example is found under `./test_api` in JavaScript, you will need `npm` and `node`.
+Now you can open the browser and go to `http://0.0.0.0:7861/` to see the Gradio Interface with Edge TTS available to use, you can also look at the API specification for it. `Ctrl + C` to stop the server. A simple API example is found under `./test_api` in JavaScript, you will need `npm` and `node`.
 
 ```bash
 cd test_api
@@ -44,19 +44,27 @@ docker run -d -p 7860:7860 --name edge-tts-gradio edge-tts-gradio
 
 #when removing the image
 #docker rmi edge-tts-gradio
+
+#to remove everything related to docker (sometimes needed, quick reference)
+#docker system prune -a --volumes --force
 ```
 
 Or use docker-compose:
 
 ```bash
-docker-compose up -d
+#to start a container
+docker-compose up
+
+#start as a daemon
+#docker-compose up -d
 
 #when stopping the container
 #docker-compose down
-
 ```
 
 Remember you can always remove the `-d` flag for debugging purposes.
+
+**You can modify the port the application is running on by setting the PORT environment variable in `.env`.**
 
 ## Contributing
 

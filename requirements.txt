@@ -1,3 +1,4 @@
-gradio
+python-dotenv
 edge_tts
 asyncio
+gradio

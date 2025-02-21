@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "7861:7861"
+      - "${PORT:-7861}:${PORT:-7861}"  #  Use environment variable, fallback to 7861
     environment:
-      PORT: "7861"
+      PORT: "${PORT:-7861}"  #  Set the PORT environment variable inside the container
     restart: unless-stopped

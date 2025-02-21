@@ -73,7 +73,17 @@ async def create_interface():
 
 # Run the Gradio app in a synchronous event loop
 if __name__ == "__main__":
+
+    import os
+    from dotenv import load_dotenv
+
+    # Load environment variables from .env file (if it exists)
+    load_dotenv()
+
+    # Get the port from the environment variable, default to 7861
+    port = int(os.environ.get("PORT", 7861))
+
     async def run_app():
         interface = await create_interface()
-        interface.launch(server_name="0.0.0.0", server_port=7861, share=False)
+        interface.launch(server_name="0.0.0.0", server_port=port, share=False)
     asyncio.run(run_app())
