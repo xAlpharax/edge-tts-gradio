@@ -1,6 +1,6 @@
 import { Client } from "@gradio/client";
 
-const client = await Client.connect("http://127.0.0.1:7861/");
+const client = await Client.connect("http://localhost:7861/");
 
 const result = await client.predict(
   "/predict", {
