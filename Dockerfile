@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir --upgrade pip \
 COPY app.py ./
 
 # Expose the port the app runs on
-EXPOSE 7860
+EXPOSE 7861
 
 # Command to run the application
 CMD ["python", "app.py"]

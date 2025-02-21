@@ -75,5 +75,5 @@ async def create_interface():
 if __name__ == "__main__":
     async def run_app():
         interface = await create_interface()
-        interface.launch(server_name="0.0.0.0", share=False)
+        interface.launch(server_name="0.0.0.0", server_port=7861, share=False)
     asyncio.run(run_app())
